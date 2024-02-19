@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class CharacterMove : MonoBehaviour
 {
     public CharacterHousingManager homeAssign;
+    public Wander wander;
     public UIManager uiManager;
     private Vector3 initialMousePosition;
     private Vector3 initialCharacterPosition;
@@ -45,7 +46,7 @@ public class CharacterMove : MonoBehaviour
                         selected = true;
                     }
                     lastClickTime = Time.time;
-                    uiManager.UpdateSelectionUI(id);
+                    uiManager.UpdateSelectionUI(id, gameObject);
                     print(id);
                 }
 /*
@@ -100,6 +101,14 @@ public class CharacterMove : MonoBehaviour
         {
             isDragging = false;
             selected = false;
+        }
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("House"))
+        {
+            wander.isWandering = true;
+            UnityEngine.AI.NavMeshAgent nav = gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>();
         }
     }
 }

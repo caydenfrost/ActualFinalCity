@@ -5,15 +5,15 @@ using UnityEngine.AI;
 
 public class Pathfind : MonoBehaviour
 {
-    public NavMeshAgent agent;
+    private NavMeshAgent agent;
+    public CharacterHousingManager dictionary;
+    public CharacterController character;
     void Start()
     {
-        
+        agent = GetComponent<NavMeshAgent>();
     }
-
-    // Update is called once per frame
-    void Update()
+    void GoHome(int id, GameObject home)
     {
-        
+        agent.SetDestination(home.transform.position);
     }
 }

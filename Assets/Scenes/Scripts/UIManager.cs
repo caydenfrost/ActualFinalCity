@@ -1,10 +1,16 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.EventSystems;
 
 public class UIManager : MonoBehaviour
 {
     public CharacterHousingManager characterHousingManager;
+    public Wander wander;
+    [SerializeField]
+    private NavMeshAgent characterAgent;
+    [SerializeField]
+    private GameObject playerHouse;
     public TMP_Text rssText;
     public int wood;
     public int stone;
@@ -57,9 +63,11 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void UpdateSelectionUI(int CharacterID)
+    public void UpdateSelectionUI(int CharacterID, GameObject playerObj)
     {
-        GameObject assignedHouse = characterHousingManager.characterHouses[CharacterID];
+        characterAgent = playerObj.GetComponent<NavMeshAgent>();
+        playerHouse = characterHousingManager.characterHouses[CharacterID];
+        wander = playerObj.GetComponent<Wander>();
         if (EventSystem.current.IsPointerOverGameObject())
         {
             // Mouse is clicking on a UI element, do nothing for now
@@ -87,16 +95,16 @@ public class UIManager : MonoBehaviour
                 }
             }
         }
-        
+
 
         if (CharacterID > 0)
         {
-            if (assignedHouse == null)
+            if (playerHouse == null)
             {
                 homeUI.text = "Homeless";
                 returnHome.gameObject.SetActive(false);
             }
-            else if (assignedHouse != null)
+            else if (playerHouse != null)
             {
                 homeUI.text = "";
                 returnHome.gameObject.SetActive(true);
@@ -121,7 +129,11 @@ public class UIManager : MonoBehaviour
             job.gameObject.SetActive(false);
         }
     }
-
+    public void ReturnHome()
+    {
+        characterAgent.SetDestination(playerHouse.transform.position);
+        wander.isWandering = false;
+    }
     public void OnButtonClick()
     {
         if (!zoning)

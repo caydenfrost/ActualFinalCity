@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class Wander : MonoBehaviour
 {
-    public bool isWandering;
+    public bool isWandering = true;
     public float wanderRadius;
     public NavMeshAgent agent;
     public float speed;
@@ -22,7 +22,7 @@ public class Wander : MonoBehaviour
 
     void Update()
     {
-        if (DetectFloor())
+        if (DetectFloor() && isWandering)
         {
             Vector3 randomDirection = Random.insideUnitSphere * wanderRadius;
             randomDirection += transform.position;
