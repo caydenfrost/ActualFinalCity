@@ -107,8 +107,11 @@ public class CharacterMove : MonoBehaviour
     {
         if (collision.collider.CompareTag("House"))
         {
-            wander.isWandering = true;
-            UnityEngine.AI.NavMeshAgent nav = gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>();
+            if (home != null)
+            {
+                GetComponent<UnityEngine.AI.NavMeshAgent>().SetDestination(home.transform.position);
+                GetComponent<UnityEngine.AI.NavMeshAgent>().speed = wander.speed;
+            }
         }
     }
 }
