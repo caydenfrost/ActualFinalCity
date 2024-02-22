@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,6 +18,7 @@ public class CharacterMove : MonoBehaviour
     public bool selected;
     private static int _counter;
     public int id;
+    public bool deactive = false;
 
     void Start()
     {
@@ -92,6 +94,16 @@ public class CharacterMove : MonoBehaviour
             isDragging = false;
             selected = false;
         }
+
+        RaycastHit Hit;
+        Ray Ray = Camera.main.ScreenPointToRay(transform.position);
+        if (Physics.Raycast(Ray, out Hit))
+        {
+            if (Hit.collider.gameObject == CompareTag("House"))
+            {
+                deactive = true;
+            }
+        }
     }
 
     // Cancel Selection
@@ -103,15 +115,13 @@ public class CharacterMove : MonoBehaviour
             selected = false;
         }
     }
-    private void OnCollisionEnter(Collision collision)
+
+    private void OnCollisionEnter(Collision other)
     {
-        if (collision.collider.CompareTag("House"))
+        if (other.gameObject.CompareTag("House"))
         {
-            if (home != null)
-            {
-                GetComponent<UnityEngine.AI.NavMeshAgent>().SetDestination(home.transform.position);
-                GetComponent<UnityEngine.AI.NavMeshAgent>().speed = wander.speed;
-            }
+            //other.gameObject.
+            gameObject.SetActive(false);
         }
     }
 }
