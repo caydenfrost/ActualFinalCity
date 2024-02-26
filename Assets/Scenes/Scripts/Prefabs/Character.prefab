@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -4120488513115349595}
   - component: {fileID: 4580652297044400538}
   - component: {fileID: 8272249774814339801}
+  - component: {fileID: -1519296403084956103}
   m_Layer: 0
   m_Name: Character
   m_TagString: Person
@@ -123,11 +124,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   homeAssign: {fileID: 0}
+  wander: {fileID: 0}
   uiManager: {fileID: 0}
   doubleClickTimeThreshold: 0.5
   home: {fileID: 3310870474315497466, guid: 94e85a145065a3542a282388a5fe6988, type: 3}
   selected: 0
   id: 0
+  deactive: 0
 --- !u!114 &4580652297044400538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,3 +169,30 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!54 &-1519296403084956103
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 847204257544840942}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 1
