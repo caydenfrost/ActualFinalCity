@@ -123,6 +123,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &341015768 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4580652297044400538, guid: fa5dc8da07158f1439d7a8ec23324ce6, type: 3}
+  m_PrefabInstance: {fileID: 1758268776}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b8d25f4af92a994dab8b75e029a3585, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &423875622
 GameObject:
   m_ObjectHideFlags: 0
@@ -1083,7 +1094,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6101f883d955e4643997264a93bef1df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterHousingManager: {fileID: 1951155488}
+  houseData: {fileID: 11400000, guid: dba212175044e4d708ac77d7869c5687, type: 2}
   wander: {fileID: 0}
   characterAgent: {fileID: 0}
   playerHouse: {fileID: 0}
@@ -1377,13 +1388,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -4120488513115349595, guid: fa5dc8da07158f1439d7a8ec23324ce6, type: 3}
+      propertyPath: wander
+      value: 
+      objectReference: {fileID: 341015768}
+    - target: {fileID: -4120488513115349595, guid: fa5dc8da07158f1439d7a8ec23324ce6, type: 3}
       propertyPath: uiManager
       value: 
       objectReference: {fileID: 795778312}
     - target: {fileID: -4120488513115349595, guid: fa5dc8da07158f1439d7a8ec23324ce6, type: 3}
       propertyPath: homeAssign
       value: 
-      objectReference: {fileID: 1951155488}
+      objectReference: {fileID: 11400000, guid: dba212175044e4d708ac77d7869c5687, type: 2}
     - target: {fileID: 847204257544840942, guid: fa5dc8da07158f1439d7a8ec23324ce6, type: 3}
       propertyPath: m_Name
       value: Character (1)
@@ -1875,50 +1890,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &1951155486
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1951155487}
-  - component: {fileID: 1951155488}
-  m_Layer: 0
-  m_Name: HousingManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1951155487
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1951155486}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.8536911, y: 0.30418515, z: -0.58203506}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1951155488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1951155486}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 423481dc6a6f3e34e827a4bd5d9e3053, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2044887589
 GameObject:
   m_ObjectHideFlags: 0
@@ -2143,13 +2114,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -4120488513115349595, guid: fa5dc8da07158f1439d7a8ec23324ce6, type: 3}
+      propertyPath: wander
+      value: 
+      objectReference: {fileID: 7968526716824800744}
+    - target: {fileID: -4120488513115349595, guid: fa5dc8da07158f1439d7a8ec23324ce6, type: 3}
       propertyPath: uiManager
       value: 
       objectReference: {fileID: 795778312}
     - target: {fileID: -4120488513115349595, guid: fa5dc8da07158f1439d7a8ec23324ce6, type: 3}
       propertyPath: homeAssign
       value: 
-      objectReference: {fileID: 1951155488}
+      objectReference: {fileID: 11400000, guid: dba212175044e4d708ac77d7869c5687, type: 2}
     - target: {fileID: 847204257544840942, guid: fa5dc8da07158f1439d7a8ec23324ce6, type: 3}
       propertyPath: m_Name
       value: Character
@@ -2257,6 +2232,17 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &7968526716824800744 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4580652297044400538, guid: fa5dc8da07158f1439d7a8ec23324ce6, type: 3}
+  m_PrefabInstance: {fileID: 7968526716824800740}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7968526716824800741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b8d25f4af92a994dab8b75e029a3585, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2267,7 +2253,6 @@ SceneRoots:
   - {fileID: 645733526}
   - {fileID: 1862936365}
   - {fileID: 795778311}
-  - {fileID: 1951155487}
   - {fileID: 6467165216123557004}
   - {fileID: 7968526716824800740}
   - {fileID: 1758268776}

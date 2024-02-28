@@ -1,11 +1,9 @@
-using System;
-using TMPro;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CharacterMove : MonoBehaviour
 {
-    public CharacterHousingManager homeAssign;
+    public HouseData homeAssign;
     public Wander wander;
     public UIManager uiManager;
     private Vector3 initialMousePosition;
@@ -13,19 +11,19 @@ public class CharacterMove : MonoBehaviour
     private bool isDragging = false;
     public float doubleClickTimeThreshold = 0.5f; // Time window for double click detection
     private float lastClickTime = 0f;
-    [SerializeField]
-    private GameObject home;
     public bool selected;
     private static int _counter;
     public int id;
     public bool deactive = false;
+    public GameObject home;
 
     void Start()
     {
         _counter++;
         id = _counter;
-        homeAssign.UpdateDict(id, null);
+        homeAssign.UpdateCharacterHouse(id, null);
         print(id + "logged");
+        uiManager = FindObjectOfType<UIManager>();
     }
 
     void Update()
@@ -51,12 +49,6 @@ public class CharacterMove : MonoBehaviour
                     uiManager.UpdateSelectionUI(id, gameObject);
                     print(id);
                 }
-/*
-                if (!hit.collider.gameObject.CompareTag("Person"))
-                {
-                    uiManager.UpdateSelectionUI(0);
-                }
-*/
             }
             if (Physics.Raycast(ray, out hit) && selected)
             {
@@ -65,7 +57,7 @@ public class CharacterMove : MonoBehaviour
                     home = hit.collider.gameObject;
                     print("home" + home);
                     selected = false;
-                    homeAssign.UpdateDict(id, home);
+                    homeAssign.UpdateCharacterHouse(id, home);
                     print(id + "" + home);
                 }
             }

@@ -1,84 +1,82 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HomeManager : MonoBehaviour
+[CreateAssetMenu(fileName = "HouseData", menuName = "Custom/HouseData", order = 1)]
+public class HouseData : ScriptableObject
 {
-    public int maxResidentsPerHouse = 5; // Maximum allowed characters per house
-    private Dictionary<GameObject, List<CharacterStats>> characterHouses; // Dictionary to store character stats per house
-
-    void Start()
+    [System.Serializable]
+    public class CharacterData
     {
-        characterHouses = new Dictionary<GameObject, List<CharacterStats>>();
+        public string name;
+        public int health;
+        public int attack;
+        // Add more stats as needed
     }
 
-    public void UpdateDict(int characterID, GameObject house)
-    {
-        if (characterID > 0 && house != null)
-        {
-            // Check if house already has characters
-            if (!characterHouses.ContainsKey(house))
-            {
-                characterHouses.Add(house, new List<CharacterStats>());
-            }
+    // Dictionary to hold houses and their characters
+    public Dictionary<string, Dictionary<string, CharacterData>> houseDictionary = new Dictionary<string, Dictionary<string, CharacterData>>();
 
-            // Check if house is full
-            if (characterHouses[house].Count < maxResidentsPerHouse)
-            {
-                // Add character stats to house dictionary
-                characterHouses[house].Add(new CharacterStats(characterID));
-            }
-            else
-            {
-                Debug.LogWarning("House is full!");
-            }
+    // Dictionary to hold character houses
+    public Dictionary<int, GameObject> characterHouses = new Dictionary<int, GameObject>();
+
+    // Number of characters
+    private int numberOfCharacters;
+
+    private void Awake()
+    {
+        // Initialize the character houses dictionary
+        characterHouses.Add(0, null);
+    }
+
+    // Update is called once per frame
+    public void Update()
+    {
+        if (numberOfCharacters < characterHouses.Count)
+        {
+            numberOfCharacters += 1;
+        }
+    }
+
+    // Method to add a house and its characters
+    public void AddHouse(string houseName, Dictionary<string, CharacterData> characters)
+    {
+        houseDictionary.Add(houseName, characters);
+    }
+
+    // Method to add a character to a house
+    public void AddCharacter(string houseName, string characterName, CharacterData character)
+    {
+        if (houseDictionary.ContainsKey(houseName))
+        {
+            houseDictionary[houseName].Add(characterName, character);
         }
         else
         {
-            Debug.LogWarning("Invalid character or house data.");
+            Dictionary<string, CharacterData> newHouse = new Dictionary<string, CharacterData>();
+            newHouse.Add(characterName, character);
+            houseDictionary.Add(houseName, newHouse);
         }
     }
 
-    public void RemoveCharacter(GameObject character, GameObject house)
+    // Method to remove a character from a house
+    public void RemoveCharacter(string houseName, string characterName)
     {
-        if (characterHouses.ContainsKey(house))
+        if (houseDictionary.ContainsKey(houseName))
         {
-            // Find character in house list and remove
-            for (int i = 0; i < characterHouses[house].Count; i++)
-            {
-                if (characterHouses[house][i].characterID == character.GetComponent<CharacterMove>().id)
-                {
-                    characterHouses[house].RemoveAt(i);
-                    break;
-                }
-            }
+            houseDictionary[houseName].Remove(characterName);
+        }
+    }
+
+    // Method to update character house dictionary
+    public void UpdateCharacterHouse(int id, GameObject home)
+    {
+        if (characterHouses.ContainsKey(id))
+        {
+            characterHouses[id] = home;
         }
         else
         {
-            Debug.LogWarning("House not found in dictionary.");
+            characterHouses.Add(id, home);
         }
-    }
-
-    public List<CharacterStats> GetCharacterStats(GameObject house)
-    {
-        if (characterHouses.ContainsKey(house))
-        {
-            return characterHouses[house];
-        }
-        else
-        {
-            return null;
-        }
-    }
-}
-
-public class CharacterStats
-{
-    public int characterID;
-    // Add other character statistics here (e.g., name, health, job, etc.)
-
-    public CharacterStats(int id)
-    {
-        characterID = id;
-        // Initialize other character stats here
     }
 }

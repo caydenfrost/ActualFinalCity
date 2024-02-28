@@ -5,12 +5,10 @@ using UnityEngine.EventSystems;
 
 public class UIManager : MonoBehaviour
 {
-    public CharacterHousingManager characterHousingManager;
+    public HouseData houseData; // Reference to HouseData scriptable object
     public Wander wander;
-    [SerializeField]
-    private NavMeshAgent characterAgent;
-    [SerializeField]
-    private GameObject playerHouse;
+    [SerializeField] private NavMeshAgent characterAgent;
+    [SerializeField] private GameObject playerHouse;
     public TMP_Text rssText;
     public int wood;
     public int stone;
@@ -25,11 +23,13 @@ public class UIManager : MonoBehaviour
     public TMP_Text nameText;
     public GameObject returnHome;
     public TMP_Text job;
+
     void Start()
     {
-        characterHousingManager = FindObjectOfType<CharacterHousingManager>();
+        houseData = FindObjectOfType<HouseData>(); // Find and assign HouseData scriptable object
         returnHome.SetActive(false);
     }
+
     void Update()
     {
         GameObject[] houses = GameObject.FindGameObjectsWithTag("House");
@@ -66,7 +66,7 @@ public class UIManager : MonoBehaviour
     public void UpdateSelectionUI(int CharacterID, GameObject playerObj)
     {
         characterAgent = playerObj.GetComponent<NavMeshAgent>();
-        playerHouse = characterHousingManager.characterHouses[CharacterID];
+        playerHouse = houseData.characterHouses[CharacterID];
         wander = playerObj.GetComponent<Wander>();
         if (EventSystem.current.IsPointerOverGameObject())
         {
