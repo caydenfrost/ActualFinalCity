@@ -25,7 +25,12 @@ public class CameraController : MonoBehaviour
         else if (Input.GetMouseButton(1))
         {
             Vector3 delta = Input.mousePosition - lastMousePosition;
-            transform.Rotate(Vector3.up, delta.x * rotationSpeed * Time.deltaTime, Space.World);
+            float rotationX = delta.y * rotationSpeed * Time.deltaTime;
+            float rotationY = delta.x * rotationSpeed * Time.deltaTime;
+
+            transform.Rotate(Vector3.up, rotationY, Space.World);
+            transform.Rotate(Vector3.right, -rotationX, Space.Self);
+
             lastMousePosition = Input.mousePosition;
         }
     }

@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class RssSpawning : MonoBehaviour
 {
@@ -10,22 +9,29 @@ public class RssSpawning : MonoBehaviour
     public int maxNumberOfTrees; // Maximum number of trees allowed
     public List<string> obstacleTags; // List of obstacle tags
 
+    private List<GameObject> rssPool = new List<GameObject>(); // Object pool for RSS objects
     private List<GameObject> treePool = new List<GameObject>(); // Object pool for trees
 
     void Start()
     {
-        // Create object pool
+        // Create object pools
         for (int i = 0; i < poolSize; i++)
         {
-            GameObject tree = Instantiate(rssPrefab, Vector3.zero, Quaternion.identity);
-            tree.SetActive(false); // Deactivate objects initially
-            treePool.Add(tree);
+            GameObject rss = Instantiate(rssPrefab, Vector3.zero, Quaternion.identity);
+            rss.SetActive(false); // Deactivate objects initially
+            rssPool.Add(rss);
         }
 
         InvokeRepeating("SpawnRSS", 0f, 1f); // Adjust the spawn interval as needed
+        InvokeRepeating("SpawnTrees", 0f, 0f); // Adjust the spawn interval for trees as needed
     }
 
     void SpawnRSS()
+    {
+        // Your existing RSS spawning logic goes here...
+    }
+
+    void SpawnTrees()
     {
         // Find all active GameObjects with the "Tree" tag
         GameObject[] activeTrees = GameObject.FindGameObjectsWithTag("Tree");
@@ -37,7 +43,7 @@ public class RssSpawning : MonoBehaviour
         }
 
         // Find an inactive object from the object pool
-        GameObject tree = FindInactiveObject();
+        GameObject tree = FindInactiveObject(treePool);
 
         if (tree != null)
         {
@@ -72,11 +78,10 @@ public class RssSpawning : MonoBehaviour
         }
     }
 
-
-    GameObject FindInactiveObject()
+    GameObject FindInactiveObject(List<GameObject> objectPool)
     {
         // Find the first inactive object in the object pool
-        foreach (GameObject obj in treePool)
+        foreach (GameObject obj in objectPool)
         {
             if (!obj.activeInHierarchy)
             {
@@ -88,11 +93,42 @@ public class RssSpawning : MonoBehaviour
 
     Vector3 GenerateRandomPosition()
     {
-        // Generate a random position within the navMeshBounds
-        return new Vector3(
-            Random.Range(navMeshBounds.min.x, navMeshBounds.max.x),
-            Random.Range(navMeshBounds.min.y, navMeshBounds.max.y),
-            Random.Range(navMeshBounds.min.z, navMeshBounds.max.z)
-        );
+        Vector3 randomPosition = Vector3.zero;
+        bool clearArea = false;
+        int maxAttempts = 10;
+        int attempts = 0;
+
+        while (!clearArea && attempts < maxAttempts)
+        {
+            randomPosition = new Vector3(
+                Random.Range(navMeshBounds.min.x, navMeshBounds.max.x),
+                Random.Range(navMeshBounds.min.y, navMeshBounds.max.y),
+                Random.Range(navMeshBounds.min.z, navMeshBounds.max.z)
+            );
+
+            // Check for collision with obstacles
+            Collider[] colliders = Physics.OverlapSphere(randomPosition, 1f);
+
+            clearArea = true; // Assume the area is clear until proven otherwise
+            foreach (Collider collider in colliders)
+            {
+                foreach (string tag in obstacleTags)
+                {
+                    if (collider.CompareTag(tag))
+                    {
+                        clearArea = false;
+                        break;
+                    }
+                }
+                if (!clearArea)
+                {
+                    break;
+                }
+            }
+
+            attempts++;
+        }
+
+        return clearArea ? randomPosition : Vector3.zero;
     }
 }
