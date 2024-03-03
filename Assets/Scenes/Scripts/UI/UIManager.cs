@@ -26,13 +26,19 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        houseData = FindObjectOfType<HouseData>(); // Find and assign HouseData scriptable object
+        if (houseData == null)
+        {
+            Debug.LogError("HouseData is null in UIManager.");
+            return;
+        }
+
         returnHome.SetActive(false);
     }
 
     void Update()
     {
         GameObject[] houses = GameObject.FindGameObjectsWithTag("House");
+        GameObject[] trees = GameObject.FindGameObjectsWithTag("Tree");
         canPlaceHouse = true; // Assume the house can be placed unless proven otherwise
 
         if (instantiatedZone != null)
@@ -41,6 +47,15 @@ public class UIManager : MonoBehaviour
             {
                 if (house.transform.position.x == instantiatedZone.transform.position.x &&
                     house.transform.position.z == instantiatedZone.transform.position.z)
+                {
+                    canPlaceHouse = false;
+                    break; // No need to check further, as we've found a house at the same position
+                }
+            }
+            foreach (GameObject tree in trees)
+            {
+                float distance = Vector3.Distance(tree.transform.position, instantiatedZone.transform.position);
+                if (distance <= 1f)
                 {
                     canPlaceHouse = false;
                     break; // No need to check further, as we've found a house at the same position
@@ -65,6 +80,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateSelectionUI(int CharacterID, GameObject playerObj)
     {
+        print(CharacterID);
         characterAgent = playerObj.GetComponent<NavMeshAgent>();
         playerHouse = houseData.characterHouses[CharacterID];
         wander = playerObj.GetComponent<Wander>();
@@ -87,53 +103,56 @@ public class UIManager : MonoBehaviour
                     {
                         // Display the tag of the clicked object
                         nameText.text = hit.collider.gameObject.tag;
+                        if (CharacterID < 0)
+                        {
+                            if (playerHouse == null)
+                            {
+                                homeUI.text = "Homeless";
+                                returnHome.gameObject.SetActive(false);
+                            }
+                            else if (playerHouse != null)
+                            {
+                                homeUI.text = "";
+                                returnHome.gameObject.SetActive(true);
+                            }
+                            if (nameText.text != "Person")
+                            {
+                                homeUI.gameObject.SetActive(false);
+                                returnHome.gameObject.SetActive(false);
+                                job.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                homeUI.gameObject.SetActive(true);
+                                job.gameObject.SetActive(true);
+                            }
+                        }
+                        else
+                        {
+                            homeUI.gameObject.SetActive(false);
+                            returnHome.gameObject.SetActive(false);
+                            job.gameObject.SetActive(false);
+                        }
                     }
                     else
                     {
                         nameText.text = "";
                     }
                 }
+                else
+                {
+                    nameText.text = "";
+                }
             }
-        }
-
-
-        if (CharacterID > 0)
-        {
-            if (playerHouse == null)
-            {
-                homeUI.text = "Homeless";
-                returnHome.gameObject.SetActive(false);
-            }
-            else if (playerHouse != null)
-            {
-                homeUI.text = "";
-                returnHome.gameObject.SetActive(true);
-            }
-            if (nameText.text != "Person")
-            {
-                homeUI.gameObject.SetActive(false);
-                returnHome.gameObject.SetActive(false);
-                job.gameObject.SetActive(false);
-                print("setfalse");
-            }
-            else
-            {
-                homeUI.gameObject.SetActive(true);
-                job.gameObject.SetActive(true);
-            }
-        }
-        else
-        {
-            homeUI.gameObject.SetActive(false);
-            returnHome.gameObject.SetActive(false);
-            job.gameObject.SetActive(false);
         }
     }
+
     public void ReturnHome()
     {
         characterAgent.SetDestination(playerHouse.transform.position);
         wander.isWandering = false;
     }
+
     public void OnButtonClick()
     {
         if (!zoning)

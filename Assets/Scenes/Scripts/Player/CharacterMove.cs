@@ -13,16 +13,12 @@ public class CharacterMove : MonoBehaviour
     private float lastClickTime = 0f;
     public bool selected;
     private static int _counter;
-    public int id;
     public bool deactive = false;
     public GameObject home;
 
     void Start()
     {
-        _counter++;
-        id = _counter;
-        homeAssign.UpdateCharacterHouse(id, null);
-        print(id + "logged");
+        homeAssign.UpdateCharacterHouse(GetInstanceID(), null);
         uiManager = FindObjectOfType<UIManager>();
     }
 
@@ -46,8 +42,7 @@ public class CharacterMove : MonoBehaviour
                         selected = true;
                     }
                     lastClickTime = Time.time;
-                    uiManager.UpdateSelectionUI(id, gameObject);
-                    print(id);
+                    uiManager.UpdateSelectionUI(GetInstanceID(), gameObject);
                 }
             }
             if (Physics.Raycast(ray, out hit) && selected)
@@ -55,10 +50,8 @@ public class CharacterMove : MonoBehaviour
                 if (hit.collider.CompareTag("House"))
                 {
                     home = hit.collider.gameObject;
-                    print("home" + home);
                     selected = false;
-                    homeAssign.UpdateCharacterHouse(id, home);
-                    print(id + "" + home);
+                    homeAssign.UpdateCharacterHouse(GetInstanceID(), home);
                 }
             }
         }
@@ -110,7 +103,7 @@ public class CharacterMove : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("House"))
+        if (other.gameObject.CompareTag("House") && other.gameObject == home)
         {
             //other.gameObject.
             gameObject.SetActive(false);

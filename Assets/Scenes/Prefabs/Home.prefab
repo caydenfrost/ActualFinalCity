@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4951567558552290755}
   - component: {fileID: 4646411870136581048}
   - component: {fileID: 9092894444256721646}
+  - component: {fileID: -4229083248238736649}
   m_Layer: 0
   m_Name: Home
   m_TagString: House
@@ -120,6 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coordinateLock: 1
+  HouseData: {fileID: 11400000, guid: dba212175044e4d708ac77d7869c5687, type: 2}
 --- !u!208 &9092894444256721646
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -136,3 +138,16 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &-4229083248238736649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3310870474315497466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9456303b86d3a84891bc0e68e8a349d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HouseData: {fileID: 11400000, guid: dba212175044e4d708ac77d7869c5687, type: 2}
