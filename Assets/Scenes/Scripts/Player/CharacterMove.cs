@@ -18,7 +18,8 @@ public class CharacterMove : MonoBehaviour
 
     void Start()
     {
-        homeAssign.UpdateCharacterHouse(GetInstanceID(), null);
+        homeAssign.UpdateCharacterHouse(gameObject.GetInstanceID(), null);
+        print(gameObject.GetInstanceID() + " added to dict");
         uiManager = FindObjectOfType<UIManager>();
     }
 
@@ -42,7 +43,7 @@ public class CharacterMove : MonoBehaviour
                         selected = true;
                     }
                     lastClickTime = Time.time;
-                    uiManager.UpdateSelectionUI(GetInstanceID(), gameObject);
+                    uiManager.UpdateSelectionUI(gameObject.GetInstanceID(), gameObject);
                 }
             }
             if (Physics.Raycast(ray, out hit) && selected)
@@ -51,7 +52,7 @@ public class CharacterMove : MonoBehaviour
                 {
                     home = hit.collider.gameObject;
                     selected = false;
-                    homeAssign.UpdateCharacterHouse(GetInstanceID(), home);
+                    homeAssign.UpdateCharacterHouse(gameObject.GetInstanceID(), home);
                 }
             }
         }
@@ -98,15 +99,6 @@ public class CharacterMove : MonoBehaviour
         {
             isDragging = false;
             selected = false;
-        }
-    }
-
-    private void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.CompareTag("House") && other.gameObject == home)
-        {
-            //other.gameObject.
-            gameObject.SetActive(false);
         }
     }
 }

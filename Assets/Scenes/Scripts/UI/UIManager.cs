@@ -80,7 +80,6 @@ public class UIManager : MonoBehaviour
 
     public void UpdateSelectionUI(int CharacterID, GameObject playerObj)
     {
-        print(CharacterID);
         characterAgent = playerObj.GetComponent<NavMeshAgent>();
         playerHouse = houseData.characterHouses[CharacterID];
         wander = playerObj.GetComponent<Wander>();
@@ -103,7 +102,7 @@ public class UIManager : MonoBehaviour
                     {
                         // Display the tag of the clicked object
                         nameText.text = hit.collider.gameObject.tag;
-                        if (CharacterID < 0)
+                        if (CharacterID != 0)
                         {
                             if (playerHouse == null)
                             {
