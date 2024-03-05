@@ -18,7 +18,7 @@ public class DayNightCycle : MonoBehaviour
     public Weather currentWeather = Weather.Clear;
 
     private float currentCycleTime = 0f;
-    private float currentSeasonDayLength;
+    private float currentSeasonDayLength = 91f;
 
     void Start()
     {

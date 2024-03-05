@@ -16,6 +16,9 @@ GameObject:
   - component: {fileID: 4580652297044400538}
   - component: {fileID: 8272249774814339801}
   - component: {fileID: -1519296403084956103}
+  - component: {fileID: 8964859010577254238}
+  - component: {fileID: 5846384860576948786}
+  - component: {fileID: -2456301733070467281}
   m_Layer: 0
   m_Name: Character
   m_TagString: Person
@@ -127,10 +130,9 @@ MonoBehaviour:
   wander: {fileID: 0}
   uiManager: {fileID: 0}
   doubleClickTimeThreshold: 0.5
-  home: {fileID: 3310870474315497466, guid: 94e85a145065a3542a282388a5fe6988, type: 3}
   selected: 0
-  id: 0
   deactive: 0
+  home: {fileID: 3310870474315497466, guid: 94e85a145065a3542a282388a5fe6988, type: 3}
 --- !u!114 &4580652297044400538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,3 +198,49 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!114 &8964859010577254238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 847204257544840942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55abfdae3c6c347b6878bb28ec20aa70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5846384860576948786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 847204257544840942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c79c76f9e62db4e0fb07fedb6b6c3dda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-2456301733070467281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 847204257544840942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f965fb56f1674f6db584676cc5bd27e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent1: {fileID: 0}
+  parent2: {fileID: 0}
+  selfSpeed: 0
+  selfReligion: 
+  selfIntelligence: 0
+  selfStrength: 0
+  selfHealth: 0
+  selfPoliticalView: 
+  mutationChance: 0
+  mutationRange: 0
