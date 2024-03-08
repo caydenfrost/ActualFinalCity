@@ -1,8 +1,12 @@
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ParentScript : MonoBehaviour
 {
+    public UpdateDetails detailPanel;
     private CharacterManager characterManager;
+    private CharacterData characterData;
 
     public GameObject parent1;
     public GameObject parent2;
@@ -85,6 +89,8 @@ public class ParentScript : MonoBehaviour
 
             // Check references of parent1 and parent2 in the dictionary
             CheckParentReferences();
+            // Update private character data for ui
+            characterData.children = selfChildren; characterData.strength = selfStrength; characterData.speed = selfSpeed; characterData.health = selfHealth; characterData.intelligence = selfIntelligence; characterData.religion = selfReligion; characterData.age = age; characterData.politicalView = selfPoliticalView;
         }
     }
 
@@ -93,7 +99,21 @@ public class ParentScript : MonoBehaviour
         // Check references of parent1 and parent2 in the dictionary
         CheckParentReferences();
 
-        age += Mathf.RoundToInt(Time.deltaTime)/300/92/4;
+        age += Mathf.RoundToInt(Time.deltaTime) / 300 / 92 / 4;
+        if (Input.GetMouseButtonDown(0))
+        {
+            // Perform a raycast to detect objects clicked by the mouse
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (!hit.collider.gameObject == gameObject)
+                {
+                    detailPanel.UpdateDetailPanel(this.characterData);
+                }
+            }
+        }
     }
 
     // Method to apply inheritance and mutation

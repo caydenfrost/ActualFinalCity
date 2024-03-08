@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2382,6 +2382,7 @@ GameObject:
   - component: {fileID: 645733525}
   - component: {fileID: 645733524}
   - component: {fileID: 645733523}
+  - component: {fileID: 645733527}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2478,6 +2479,32 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &645733527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 645733522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9602d84e0ba78874fb7a57185fea8a71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameText: {fileID: 742686445}
+  ageText: {fileID: 215142514}
+  killsText: {fileID: 1206563100}
+  childrenText: {fileID: 110363777}
+  strengthText: {fileID: 1455692631}
+  healthText: {fileID: 523719302}
+  intelText: {fileID: 225248829}
+  speedText: {fileID: 729569497}
+  ssText: {fileID: 872252266}
+  pvText: {fileID: 163757607}
+  religionText: {fileID: 90440263}
+  originText: {fileID: 226552222}
+  villageText: {fileID: 825708499}
+  kingdomText: {fileID: 343264798}
 --- !u!1 &720646288
 GameObject:
   m_ObjectHideFlags: 0
@@ -2560,8 +2587,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 794703731}
   m_HandleRect: {fileID: 794703730}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 0.9433333
+  m_Value: -0.0000017951517
+  m_Size: 0.9432836
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3074,7 +3101,7 @@ RectTransform:
   m_Father: {fileID: 756567105}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0.9433333}
+  m_AnchorMax: {x: 1, y: 0.9432836}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -9463,7 +9490,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 17}
+  m_AnchoredPosition: {x: 0, y: 17.000025}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1574407033
