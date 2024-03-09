@@ -28,17 +28,18 @@ public class ReturnHome : MonoBehaviour
                 }
             }
         }
+        selectedObjs.Clear();
     }
     public void AddSelectedObj(GameObject character)
     {
-        if (!selectedObjs.Contains(character))
+        if (!selectedObjs.Contains(character.gameObject))
         {
             selectedObjs.Add(character);
         }
     }
     public void RemoveSelectedObj(GameObject character)
     {
-        if (selectedObjs.Contains(character))
+        if (selectedObjs.Contains(character.gameObject))
         {
             selectedObjs.Remove(character);
         }

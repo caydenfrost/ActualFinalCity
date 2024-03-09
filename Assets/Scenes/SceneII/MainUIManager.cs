@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class UIManagerII : MonoBehaviour
+public class MainUIManager : MonoBehaviour
 {
 
     [SerializeField] private TMP_Text rssText;

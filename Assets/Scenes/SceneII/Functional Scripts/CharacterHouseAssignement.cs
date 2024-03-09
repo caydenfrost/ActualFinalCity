@@ -9,8 +9,14 @@ public class CharacterHouseAssignement : MonoBehaviour
     public bool selected;
     public GameObject home;
     public ReturnHome returnHomeScript;
-
-    // Update is called once per frame
+    void Start()
+    {
+        GameObject returnHomeObj = GameObject.Find("ReturnReference");
+        if (returnHomeObj != null)
+        {
+            returnHomeScript = returnHomeObj.GetComponent<ReturnHome>();
+        }
+    }
     void Update()
     {
         if (Input.GetMouseButtonDown(0))

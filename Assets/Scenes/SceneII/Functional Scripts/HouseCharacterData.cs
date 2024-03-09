@@ -9,12 +9,13 @@ using UnityEngine.EventSystems;
 
 public class HouseCharacterData : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> characters;
-    [SerializeField] private List<GameObject> searchCharacters;
+    public List<GameObject> characters;
+    public List<GameObject> searchCharacters;
     [SerializeField] private TMP_InputField searchBar;
     [SerializeField] private TMP_Text characterListObj;
     [SerializeField] private UnityEngine.UI.Button leaveHouseButton;
     public DetailsPanel DetailsPanelUpdater;
+    public LeaveHome LeaveHouseScript;
     public bool amSelected = false;
     void Start()
     {
@@ -23,6 +24,11 @@ public class HouseCharacterData : MonoBehaviour
         if (leaveHome != null)
         {
             leaveHouseButton = leaveHome.GetComponent<UnityEngine.UI.Button>();
+        }
+        GameObject leaveHomeFunction = GameObject.Find("LeaveHomeButtonFunction");
+        if (leaveHomeFunction != null)
+        {
+            LeaveHouseScript = leaveHomeFunction.GetComponent<LeaveHome>();
         }
         GameObject inputFieldObj = GameObject.Find("CharacterSearch");
         if (inputFieldObj != null)
@@ -39,7 +45,13 @@ public class HouseCharacterData : MonoBehaviour
         {
             DetailsPanelUpdater = panelUpdater.GetComponent<DetailsPanel>();
         }
-        searchBar.onValueChanged.AddListener(delegate { Search(); });
+        searchBar.onValueChanged.AddListener(delegate 
+        {
+            if (amSelected)
+            {
+                Search();
+            }
+        });
     }
     void Update()
     {
@@ -70,6 +82,7 @@ public class HouseCharacterData : MonoBehaviour
         if (amSelected)
         {
             DetailsPanelUpdater.UpdateDetailsPanel(gameObject);
+            LeaveHouseScript.ActiveHouse(gameObject);
             UpdateCharacterList();
         }
     }
@@ -85,7 +98,7 @@ public class HouseCharacterData : MonoBehaviour
     }
     public void Search()
     {
-        string searchValue = searchBar.text;
+        string searchValue = searchBar.text.ToLower();
         searchCharacters.Clear();
 
         if (string.IsNullOrEmpty(searchValue))
@@ -96,7 +109,8 @@ public class HouseCharacterData : MonoBehaviour
         {
             foreach (GameObject character in characters)
             {
-                if (character.name.Contains(searchValue))
+                string characterName = character.name.ToLower();
+                if (characterName.Contains(searchValue))
                 {
                     searchCharacters.Add(character);
                 }
@@ -115,13 +129,6 @@ public class HouseCharacterData : MonoBehaviour
         if (amSelected)
         {
             characterListObj.text = list;
-        }
-    }
-    public void LeaveHouse()
-    {
-        foreach (GameObject character in searchCharacters)
-        {
-            character.gameObject.SetActive(true);
         }
     }
 }
