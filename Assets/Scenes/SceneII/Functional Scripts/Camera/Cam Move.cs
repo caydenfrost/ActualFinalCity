@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CameraController : MonoBehaviour
 {
@@ -11,6 +12,12 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
+        if (EventSystem.current.currentSelectedGameObject != null &&
+            EventSystem.current.currentSelectedGameObject.GetComponent<TMPro.TMP_InputField>() != null)
+        {
+            // If an input field is selected or focused, return without processing camera movement
+            return;
+        }
         // Camera movement with arrow keys
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");

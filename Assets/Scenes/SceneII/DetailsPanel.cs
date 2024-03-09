@@ -1,18 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class DetailsPanel : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public GameObject selectedHouse;
+    public GameObject panel;
     void Start()
     {
         
     }
-
-    // Update is called once per frame
     void Update()
     {
-        
+        if (selectedHouse == null)
+        {
+            panel.SetActive(false);
+        }
+        else
+        {
+            panel.SetActive(true);
+        }
+    }
+    public void UpdateDetailsPanel(GameObject house)
+    {
+        selectedHouse = house;
     }
 }

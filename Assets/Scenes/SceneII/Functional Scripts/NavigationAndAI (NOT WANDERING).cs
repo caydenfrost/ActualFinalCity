@@ -16,13 +16,6 @@ public class NavigationAndAI : MonoBehaviour
         houseAccess = GetComponent<CharacterHouseAssignement>();
         agent = GetComponent<NavMeshAgent>();
     }
-    void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject == houseAccess.home)
-        {
-            returning = false;
-        }
-    }
     public void ReturnHome()
     {
         returning = true;
