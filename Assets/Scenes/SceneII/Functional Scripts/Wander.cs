@@ -7,21 +7,39 @@ public class Wander : MonoBehaviour
 {
     public bool isWandering = true;
     public float wanderRadius;
-    public NavMeshAgent agent;
+    private NavMeshAgent agent;
     public float speed;
+    private CharacterHouseAssignement characterHouseAssignment;
+    private NavigationAndAI AINav;
 
     void Start()
     {
+        AINav = GetComponent<NavigationAndAI>();
         agent = GetComponent<NavMeshAgent>();
         if (agent == null )
         {
             Debug.LogError("NavMeshAgent not found");
             return;
         }
+        characterHouseAssignment = GetComponent<CharacterHouseAssignement>();
+        agent = GetComponent<NavMeshAgent>();
     }
 
     void Update()
     {
+        // WANDER CONDITIONS
+        if (characterHouseAssignment.selected == false && AINav.returning == false)
+        {
+            isWandering = true;
+        }
+        else
+        {
+            isWandering = false;
+        }
+
+
+
+
         if (DetectFloor() && isWandering)
         {
             Vector3 randomDirection = Random.insideUnitSphere * wanderRadius;
@@ -34,6 +52,13 @@ public class Wander : MonoBehaviour
             agent.SetDestination(finalPosition);
         }
         agent.speed = speed * Time.deltaTime;
+
+
+        if (characterHouseAssignment.selected == true)
+        {
+            isWandering = false;
+            agent.SetDestination(transform.position);
+        }
     }
     bool DetectFloor()
     {

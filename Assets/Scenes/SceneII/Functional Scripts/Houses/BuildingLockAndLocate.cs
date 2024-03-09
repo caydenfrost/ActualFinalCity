@@ -11,7 +11,7 @@ public class BuildingLockAndLocate : MonoBehaviour
         Vector3 currentPosition = transform.position;
         currentPosition.x = Mathf.Round(currentPosition.x / coordinateLock) * coordinateLock;
         currentPosition.z = Mathf.Round(currentPosition.z / coordinateLock) * coordinateLock;
-        currentPosition.y = 0.5f;
+        currentPosition.y = gameObject.transform.localScale.y/2;
         transform.position = currentPosition;
         HouseData.AddHouse(gameObject, null);
     }

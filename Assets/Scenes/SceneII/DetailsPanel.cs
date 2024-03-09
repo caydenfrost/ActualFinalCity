@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class DetailsPanel : MonoBehaviour
 {
-    public CharacterData thisData;
+    // Start is called before the first frame update
     void Start()
     {
         
@@ -15,10 +14,5 @@ public class DetailsPanel : MonoBehaviour
     void Update()
     {
         
-    }
-
-    public void UpdateDetails(CharacterData panelData)
-    {
-        thisData = panelData;
     }
 }
