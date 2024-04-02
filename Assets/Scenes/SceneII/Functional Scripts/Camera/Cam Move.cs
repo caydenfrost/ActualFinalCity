@@ -5,8 +5,8 @@ public class CameraController : MonoBehaviour
 {
     public float moveSpeed = 10f;
     public float rotationSpeed = 100f;
-    public float minZoomDistance = 5f;
-    public float maxZoomDistance = 20f;
+    public float maxUpAngle = 90f;
+    public float maxDownAngle = 90f;
 
     private Vector3 lastMousePosition;
 
@@ -35,6 +35,20 @@ public class CameraController : MonoBehaviour
             float rotationX = delta.y * rotationSpeed * Time.deltaTime;
             float rotationY = delta.x * rotationSpeed * Time.deltaTime;
 
+            float currentRotationX = transform.eulerAngles.x - rotationX;
+
+            // Ensure the rotation stays within bounds
+            if (currentRotationX > 90f && currentRotationX < 180f + maxUpAngle)
+            {
+                rotationX = 0;
+                currentRotationX = 180f + maxUpAngle;
+            }
+            else if (currentRotationX < 270f && currentRotationX > 180f - maxDownAngle)
+            {
+                rotationX = 0;
+                currentRotationX = 180f - maxDownAngle;
+            }
+            
             transform.Rotate(Vector3.up, rotationY, Space.World);
             transform.Rotate(Vector3.right, -rotationX, Space.Self);
 

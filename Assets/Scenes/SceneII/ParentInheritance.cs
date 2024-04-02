@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class ParentInheritance : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public int generation;
+    public int speed;
+    public int health;
+    public int strength;
+    public int intelligence;
     void Start()
     {
         
@@ -13,6 +17,12 @@ public class ParentInheritance : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (generation == 1)
+        {
+            speed = Random.RandomRange(1, 5);
+            health = Random.RandomRange(5, 20);
+            strength = Random.RandomRange(1, 5);
+            intelligence = Random.RandomRange(1, 10);
+        }
     }
 }
