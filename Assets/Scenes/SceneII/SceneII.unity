@@ -391,9 +391,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 385bf4937076a48e4b52d0b597a6bfc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterStats: {fileID: 0}
   CharacterUI: {fileID: 2067228142}
   nameText: {fileID: 1630437150}
   ageText: {fileID: 1176128939}
+  housingStatus: {fileID: 627709725}
+  speedText: {fileID: 1351845497}
+  healthText: {fileID: 1148255319}
+  strengthText: {fileID: 842459078}
+  intelligenceText: {fileID: 792504758}
   age: 0
 --- !u!1 &98653703
 GameObject:
@@ -848,7 +854,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 843383563}
   m_HandleRect: {fileID: 843383562}
   m_Direction: 3
-  m_Value: 0
+  m_Value: -0.0000007180607
   m_Size: 0.43333334
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -5136,7 +5142,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000007379733, y: 169.99998}
+  m_AnchoredPosition: {x: 0.000007379733, y: 170.00015}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1974877348

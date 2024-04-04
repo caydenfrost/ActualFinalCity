@@ -6,10 +6,15 @@ using UnityEngine.TextCore.Text;
 
 public class CharacterUIManager : MonoBehaviour
 {
+    public ParentInheritance characterStats;
     public GameObject CharacterUI;
     public TMP_Text nameText;
     public TMP_Text ageText;
     public TMP_Text housingStatus;
+    public TMP_Text speedText;
+    public TMP_Text healthText;
+    public TMP_Text strengthText;
+    public TMP_Text intelligenceText;
     public int age;
     void Start()
     {
@@ -29,6 +34,12 @@ public class CharacterUIManager : MonoBehaviour
             {
                 if (hit.collider.gameObject.CompareTag("Person"))
                 {
+                    //collect stats
+                    characterStats = hit.collider.gameObject.GetComponent<ParentInheritance>();
+                    speedText.text = RoundToNearestTenth(characterStats.GetTraitValue(TraitType.Speed)).ToString();
+                    healthText.text = RoundToNearestTenth(characterStats.GetTraitValue(TraitType.Health)).ToString();
+                    strengthText.text = RoundToNearestTenth(characterStats.GetTraitValue(TraitType.Strength)).ToString();
+                    intelligenceText.text = RoundToNearestTenth(characterStats.GetTraitValue(TraitType.Intelligence)).ToString();
                     //ui setactive
                     CharacterUI.SetActive(true);
                     //name
@@ -45,6 +56,10 @@ public class CharacterUIManager : MonoBehaviour
                         housingStatus.text = "Homeless";
                     }
                 }
+                else
+                {
+                    CharacterUI.SetActive(false);
+                }
             }
         }
     }
@@ -52,5 +67,9 @@ public class CharacterUIManager : MonoBehaviour
     public void UpdateAge(int newAge)
     {
         age = newAge;
+    }
+    float RoundToNearestTenth(float value)
+    {
+        return Mathf.Round(value * 10f) / 10f;
     }
 }
