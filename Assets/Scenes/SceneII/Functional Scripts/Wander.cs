@@ -24,7 +24,7 @@ public class Wander : MonoBehaviour
         characterHouseAssignment = GetComponent<CharacterHouseAssignement>();
         agent = GetComponent<NavMeshAgent>();
 
-        transform.position = new Vector3(transform.position.x, transform.localScale.y/2, transform.position.z);
+        transform.position = new Vector3(transform.position.x, transform.localScale.y, transform.position.z);
     }
 
     void Update()

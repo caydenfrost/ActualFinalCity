@@ -36,10 +36,10 @@ public class CharacterUIManager : MonoBehaviour
                 {
                     //collect stats
                     characterStats = hit.collider.gameObject.GetComponent<ParentInheritance>();
-                    speedText.text = RoundToNearestTenth(characterStats.GetTraitValue(TraitType.Speed)).ToString();
-                    healthText.text = RoundToNearestTenth(characterStats.GetTraitValue(TraitType.Health)).ToString();
-                    strengthText.text = RoundToNearestTenth(characterStats.GetTraitValue(TraitType.Strength)).ToString();
-                    intelligenceText.text = RoundToNearestTenth(characterStats.GetTraitValue(TraitType.Intelligence)).ToString();
+                    speedText.text = "Speed: " + RoundToNearestTenth(characterStats.GetTraitValue(TraitType.Speed)).ToString();
+                    healthText.text = "Health: " + RoundToNearestTenth(characterStats.GetTraitValue(TraitType.Health)).ToString();
+                    strengthText.text = "Strength: " + RoundToNearestTenth(characterStats.GetTraitValue(TraitType.Strength)).ToString();
+                    intelligenceText.text = "Intelligence: " + RoundToNearestTenth(characterStats.GetTraitValue(TraitType.Intelligence)).ToString();
                     //ui setactive
                     CharacterUI.SetActive(true);
                     //name
