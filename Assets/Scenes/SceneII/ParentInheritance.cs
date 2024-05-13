@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,16 +34,9 @@ public class ParentInheritance : MonoBehaviour
             generation = 1; // Assume first generation if parents are not defined
         }
 
-        // Initialize random traits for the first generation
-        if (generation == 1)
-        {
-            traits = new TraitSet();
-            traits.InitializeRandom(mutationFactor);
-        }
-        else // Inherit traits from parents for subsequent generations
-        {
-            traits = InheritTraits(parent1data?.traits, parent2data?.traits);
-        }
+        // Initialize traits including fertility
+        traits = new TraitSet();
+        traits.InitializeRandom(mutationFactor, generation);
 
         // Perform actions based on inherited traits
         // Example: Adjust movement speed based on speed trait
@@ -91,13 +83,14 @@ public enum TraitType
     Intelligence,
     Color,
     Height,
-    Width
+    Width,
+    Fertility
 }
 
 public interface Trait
 {
     Trait Inherit(Trait other);
-    object GetValue(); // Changed the return type to object
+    object GetValue();
 }
 
 public class QuantitativeTrait : Trait
@@ -119,7 +112,6 @@ public class QuantitativeTrait : Trait
 
     public Trait Mutate()
     {
-        // Adjust the value based on a bell curve probability graph
         float mutation = Mathf.PerlinNoise(Time.time, 0) * mutationFactor;
         return new QuantitativeTrait(value + mutation, mutationFactor);
     }
@@ -142,12 +134,11 @@ public class QualitativeTrait : Trait
 
     public Trait Inherit(Trait other)
     {
-        // For qualitative traits, randomly choose one of the parent values
         float inheritedValue = Random.Range(0f, 1f) < 0.5f ? value : ((QualitativeTrait)other).value;
         return new QualitativeTrait(inheritedValue);
     }
 
-    public object GetValue() // Changed the return type to object
+    public object GetValue()
     {
         return value;
     }
@@ -166,34 +157,28 @@ public class ColorTrait : Trait
 
     public Trait Inherit(Trait other)
     {
-        // For color traits, randomly choose one of the parent values
         Color inheritedValue = Random.Range(0f, 1f) < 0.5f ? value : ((ColorTrait)other).value;
         return new ColorTrait(inheritedValue, mutationFactor);
     }
 
     public Trait Mutate()
     {
-        // Adjust color components based on a bell curve probability graph
         float mutationR = Mathf.PerlinNoise(Time.time, 0) * mutationFactor;
         float mutationG = Mathf.PerlinNoise(Time.time, 1) * mutationFactor;
         float mutationB = Mathf.PerlinNoise(Time.time, 2) * mutationFactor;
 
-        // Check if the mutation is within the top or bottom 10% of the bell curve
         float threshold = 0.1f * mutationFactor; // 10% of mutation factor
         bool randomizeColor = (mutationR < threshold || mutationR > (1 - threshold)) &&
                               (mutationG < threshold || mutationG > (1 - threshold)) &&
                               (mutationB < threshold || mutationB > (1 - threshold));
 
-        // Apply mutation to color components
         Color mutatedColor;
         if (randomizeColor)
         {
-            // If within the top or bottom 10% of the bell curve, choose a random color
             mutatedColor = new Color(Random.value, Random.value, Random.value);
         }
         else
         {
-            // Otherwise, mutate based on the bell curve
             mutatedColor = new Color(
                 Mathf.Clamp01(value.r + mutationR),
                 Mathf.Clamp01(value.g + mutationG),
@@ -214,7 +199,7 @@ public class TraitSet
 {
     Dictionary<TraitType, Trait> traits;
 
-    public void InitializeRandom(float mutationFactor)
+    public void InitializeRandom(float mutationFactor, int generation)
     {
         traits = new Dictionary<TraitType, Trait>();
         foreach (var traitType in TraitTypeExtensions.AllTypes)
@@ -225,9 +210,12 @@ public class TraitSet
             }
             else if (traitType == TraitType.Height || traitType == TraitType.Width)
             {
-                // Random height and width within reasonable range
                 float randomValue = Random.Range(0.05f, 0.15f);
                 traits.Add(traitType, new QuantitativeTrait(randomValue, mutationFactor));
+            }
+            else if (traitType == TraitType.Fertility && generation == 1)
+            {
+                traits.Add(traitType, new QuantitativeTrait(0.05f, mutationFactor)); // Initial fertility value for generation 1
             }
             else
             {
@@ -235,7 +223,7 @@ public class TraitSet
             }
         }
     }
-    
+
     public Trait GetTrait(TraitType traitType)
     {
         return traits[traitType];
@@ -251,7 +239,7 @@ public class TraitSet
         return (float)traits[traitType].GetValue();
     }
 
-    public Color GetTraitColor(TraitType traitType) // Method to get color trait value
+    public Color GetTraitColor(TraitType traitType)
     {
         return (Color)traits[traitType].GetValue();
     }

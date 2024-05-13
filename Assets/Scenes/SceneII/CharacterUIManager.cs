@@ -15,6 +15,7 @@ public class CharacterUIManager : MonoBehaviour
     public TMP_Text healthText;
     public TMP_Text strengthText;
     public TMP_Text intelligenceText;
+    public TMP_Text fertilityText;
     public int age;
     void Start()
     {
@@ -40,6 +41,7 @@ public class CharacterUIManager : MonoBehaviour
                     healthText.text = "Health: " + RoundToNearestTenth(characterStats.GetTraitValue(TraitType.Health)).ToString();
                     strengthText.text = "Strength: " + RoundToNearestTenth(characterStats.GetTraitValue(TraitType.Strength)).ToString();
                     intelligenceText.text = "Intelligence: " + RoundToNearestTenth(characterStats.GetTraitValue(TraitType.Intelligence)).ToString();
+                    fertilityText.text = "Fertility: " + RoundToNearestTenth(characterStats.GetTraitValue(TraitType.Fertility)).ToString();
                     //ui setactive
                     CharacterUI.SetActive(true);
                     //name

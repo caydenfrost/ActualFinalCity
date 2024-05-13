@@ -18,7 +18,7 @@ public class UpgradeHouse : MonoBehaviour
     }
     void Update()
     {
-        houseupgrade = stages[upgradestage];
+        //houseupgrade = stages[upgradestage];
     }
     void UgradeHouse()
     {

@@ -69,6 +69,11 @@ public class HouseCharacterData : MonoBehaviour
             searchCharacters.Add(other.gameObject);
             characters.Add(other.gameObject);
             other.gameObject.SetActive(false);
+            GameObject spouse = other.gameObject.GetComponent<Birth>().spouse;
+            if (spouse != null && characters.Contains(spouse))
+            {
+                other.gameObject.GetComponent<Birth>().MakeChild();
+            }
         }
     }
 
