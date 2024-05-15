@@ -855,7 +855,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 843383563}
   m_HandleRect: {fileID: 843383562}
   m_Direction: 3
-  m_Value: -0.0000014361214
+  m_Value: -0.000002154182
   m_Size: 0.43333334
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -3557,7 +3557,7 @@ MonoBehaviour:
   poolSize: 100
   navMeshBounds:
     m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 25, y: 0, z: 25}
   maxNumberOfResource: 100
   obstacleTags:
   - Person
@@ -5201,7 +5201,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000007379733, y: 170.00026}
+  m_AnchoredPosition: {x: 0.000007379733, y: 170.00034}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1974877348
