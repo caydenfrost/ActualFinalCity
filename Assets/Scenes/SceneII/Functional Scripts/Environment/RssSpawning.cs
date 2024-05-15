@@ -7,7 +7,7 @@ public class RssSpawning : MonoBehaviour
     public GameObject rssPrefab;
     public int poolSize; // Number of objects to pool
     public Bounds navMeshBounds;
-    public int maxNumberOfTrees; // Maximum number of trees allowed
+    public int maxNumberOfResource; // Maximum number of trees allowed
     public List<string> obstacleTags; // List of obstacle tags
 
     private List<GameObject> treePool = new List<GameObject>(); // Object pool for trees
@@ -31,7 +31,7 @@ public class RssSpawning : MonoBehaviour
         GameObject[] activeTrees = GameObject.FindGameObjectsWithTag("Tree");
 
         // Check if the current number of trees exceeds the maximum allowed
-        if (activeTrees.Length >= maxNumberOfTrees)
+        if (activeTrees.Length >= maxNumberOfResource)
         {
             return; // Don't spawn more trees if the limit is reached
         }
