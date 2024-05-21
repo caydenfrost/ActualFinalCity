@@ -19,6 +19,7 @@ public class HousePlacer : MonoBehaviour
     {
         GameObject[] houses = GameObject.FindGameObjectsWithTag("House");
         GameObject[] trees = GameObject.FindGameObjectsWithTag("Tree");
+        GameObject[] rocks = GameObject.FindGameObjectsWithTag("Rock");
         canPlaceHouse = true;
 
         if (instantiatedZone != null)
@@ -36,6 +37,15 @@ public class HousePlacer : MonoBehaviour
             {
                 float distance = Vector3.Distance(tree.transform.position, instantiatedZone.transform.position);
                 if (distance <= 1f)
+                {
+                    canPlaceHouse = false;
+                    break; // No need to check further, as we've found a house at the same position
+                }
+            }
+            foreach (GameObject rock in rocks)
+            {
+                float distance = Vector3.Distance(rock.transform.position, instantiatedZone.transform.position);
+                if (distance <= rock.transform.localScale.x)
                 {
                     canPlaceHouse = false;
                     break; // No need to check further, as we've found a house at the same position
