@@ -10,6 +10,9 @@ public class CharacterDragging : MonoBehaviour
     private bool isDragging = false;
     private NavMeshAgent navMeshAgent;
     private Rigidbody rb;
+    public ResourceCollector rssColl;
+
+    [SerializeField] private string[] resourceTags; // Tags of resources to collect
 
     void Start()
     {
@@ -17,7 +20,6 @@ public class CharacterDragging : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -68,6 +70,25 @@ public class CharacterDragging : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             isDragging = false;
+            CheckForResourcesUnderDropZone();
+        }
+    }
+
+    void CheckForResourcesUnderDropZone()
+    {
+        RaycastHit[] hits;
+        foreach (string tag in resourceTags)
+        {
+            hits = Physics.RaycastAll(transform.position, Vector3.down, 10f);
+            foreach (RaycastHit hit in hits)
+            {
+                if (hit.collider.CompareTag(tag))
+                {
+                    rssColl.CollectResource(hit.collider.gameObject);
+                    Debug.Log("Resource Found: " + hit.collider.gameObject.name);
+                    return; // Only collect one resource per drop
+                }
+            }
         }
     }
 }
