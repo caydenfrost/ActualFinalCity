@@ -18,8 +18,8 @@ public class TreeSizer : MonoBehaviour
     void Start()
     {
         currentScale = gameObject.transform.localScale;
-        growScale = Random.Range(1, 1.25f);
-        maxGrowths = Random.Range(15, 45);
+        growScale = Random.Range(1, 1.55f);
+        maxGrowths = Random.Range(15, 135);
     }
 
     // Update is called once per frame
@@ -37,10 +37,11 @@ public class TreeSizer : MonoBehaviour
             timesincegrow = 0;
         }
     }
-    void ResetGameObject()
+    public void ResetGameObject()
     {
         currentScale = originalScale;
-        growScale = Random.Range(1, 1.25f);
-        maxGrowths = Random.Range(15, 45);
+        growScale = Random.Range(1, 1.45f);
+        maxGrowths = Random.Range(15, 135);
+        growTime += 0.1f;
     }
 }

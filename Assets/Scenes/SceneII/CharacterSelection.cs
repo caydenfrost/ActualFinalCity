@@ -15,7 +15,7 @@ public class CharacterSelection : MonoBehaviour
             {
                 if (hit.collider.CompareTag("Person"))
                 {
-                    // Assuming each character has an Inventory component
+                    // Assuming each character has an Inventory components
                     Inventory characterInventory = hit.collider.GetComponent<Inventory>();
 
                     if (characterInventory != null)
