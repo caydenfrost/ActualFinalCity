@@ -1,76 +1,62 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class Wander : MonoBehaviour
 {
     public bool isWandering = true;
-    public float wanderRadius;
+    public float wanderRadius = 10f;
+    public float minWanderDistance = 5f;
+    public float maxWanderDistance = 20f;
+    public float wanderSpeed = 3f;
+    public float maxAngleChange = 45f;
+
     private NavMeshAgent agent;
-    public float speed;
-    private CharacterHouseAssignement characterHouseAssignment;
-    private NavigationAndAI AINav;
+    private Vector3 targetPosition;
 
     void Start()
     {
-        AINav = GetComponent<NavigationAndAI>();
         agent = GetComponent<NavMeshAgent>();
-        if (agent == null )
-        {
-            Debug.LogError("NavMeshAgent not found");
-            return;
-        }
-        characterHouseAssignment = GetComponent<CharacterHouseAssignement>();
-        agent = GetComponent<NavMeshAgent>();
-
-        transform.position = new Vector3(transform.position.x, transform.localScale.y, transform.position.z);
+        agent.autoBraking = false; // Prevents the agent from slowing down as it approaches the target
+        agent.speed = wanderSpeed;
+        targetPosition = GetRandomPointInNavMesh(transform.position, wanderRadius);
+        MoveToTarget();
     }
 
     void Update()
     {
-        // WANDER CONDITIONS
-        if (characterHouseAssignment.selected == false && AINav.returning == false)
+        if (isWandering)
         {
-            isWandering = true;
+            if (!agent.pathPending && agent.remainingDistance < 0.5f)
+            {
+                targetPosition = GetRandomPointInNavMesh(transform.position, wanderRadius);
+                MoveToTarget();
+            }
         }
         else
         {
-            isWandering = false;
-        }
-
-
-        if (DetectFloor() && isWandering)
-        {
-            Vector3 randomDirection = Random.insideUnitSphere * wanderRadius;
-            randomDirection += transform.position;
-            NavMeshHit hit;
-            NavMesh.SamplePosition(randomDirection, out hit, wanderRadius, 1);
-            Vector3 finalPosition = hit.position;
-
-            
-            agent.SetDestination(finalPosition);
-        }
-        agent.speed = speed * Time.deltaTime;
-
-
-        if (characterHouseAssignment.selected == true)
-        {
-            isWandering = false;
-            agent.SetDestination(transform.position);
+            agent.ResetPath();
         }
     }
-    bool DetectFloor()
+
+    Vector3 GetRandomPointInNavMesh(Vector3 origin, float radius)
     {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit))
-        {
-            if (hit.collider.CompareTag("Floor"))
-            {
-                return true;
-            }
-        }
-        return false;
+        Vector3 randomDirection = Random.insideUnitSphere * radius;
+        randomDirection += origin;
+        NavMeshHit hit;
+        NavMesh.SamplePosition(randomDirection, out hit, radius, NavMesh.AllAreas);
+        return hit.position;
+    }
+
+    void MoveToTarget()
+    {
+        Vector3 directionToTarget = targetPosition - transform.position;
+        float angleToTarget = Vector3.SignedAngle(transform.forward, directionToTarget, Vector3.up);
+        float maxAllowedAngleChange = Mathf.Clamp(angleToTarget, -maxAngleChange, maxAngleChange);
+        Quaternion newRotation = Quaternion.AngleAxis(maxAllowedAngleChange, Vector3.up) * transform.rotation;
+        Vector3 newDirection = newRotation * Vector3.forward;
+
+        NavMeshHit hit;
+        NavMesh.SamplePosition(transform.position + newDirection * wanderRadius, out hit, wanderRadius, NavMesh.AllAreas);
+        agent.SetDestination(hit.position);
     }
 }
-

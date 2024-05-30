@@ -37,7 +37,6 @@ public class NavigationAndAI : MonoBehaviour
                         rssObj = hit.collider.gameObject;
                         rssColl.currentResource = rssObj;
                         rssLocation = rssObj.transform.position;
-                        CollectRss();
                     }
                 }
             }
