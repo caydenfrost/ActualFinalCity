@@ -5,7 +5,7 @@ public class UserInputManager : MonoBehaviour
 {
     private float lastClickTime = 0f;
     private const float doubleClickTimeThreshold = 0.2f;
-
+    
     public bool ClickSelf()
     {
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
@@ -31,7 +31,6 @@ public class UserInputManager : MonoBehaviour
         }
         return false;
     }
-
     public bool DoubleClickSelf()
     {
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
@@ -52,7 +51,26 @@ public class UserInputManager : MonoBehaviour
         }
         return false;
     }
-
+    public bool ClickNone()
+    {
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (!Physics.Raycast(ray, out hit))
+            {
+                return true;
+            }
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.collider.CompareTag("Floor"))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
     public GameObject ClickOther()
     {
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
