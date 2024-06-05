@@ -13,7 +13,7 @@ public class MainUIManager : MonoBehaviour
     [SerializeField] private TMP_Text job;
     [SerializeField] private GameObject returnHome;
 
-    public void InitializeUI(HouseData houseData, Wander wander, NavMeshAgent characterAgent)
+    public void InitializeUI(Wander wander, NavMeshAgent characterAgent)
     {
 
     }

@@ -1,12 +1,12 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-
+//INDEPENDENT SCRIPT
 public class UserInputManager : MonoBehaviour
 {
     private float lastClickTime = 0f;
     private const float doubleClickTimeThreshold = 0.2f;
     
-    public bool ClickSelf()
+    public bool ClickObj(GameObject Obj)
     {
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
@@ -14,7 +14,7 @@ public class UserInputManager : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.collider.gameObject == gameObject)
+                if (hit.collider.gameObject == Obj)
                 {
                     if (Time.time - lastClickTime < doubleClickTimeThreshold)
                     {
@@ -31,7 +31,7 @@ public class UserInputManager : MonoBehaviour
         }
         return false;
     }
-    public bool DoubleClickSelf()
+    public bool ClickObjWTag(string tag)
     {
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
@@ -39,7 +39,41 @@ public class UserInputManager : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.collider.gameObject == gameObject)
+                if (hit.collider.gameObject.CompareTag(tag))
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+        return false;
+    }
+    public bool ClickObjWOTag(string tag)
+    {
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (!hit.collider.gameObject.CompareTag(tag))
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+        return false;
+    }
+    public bool DoubleClickObj(GameObject Obj)
+    {
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.collider.gameObject == Obj)
                 {
                     if (Time.time - lastClickTime < doubleClickTimeThreshold)
                     {
@@ -71,7 +105,7 @@ public class UserInputManager : MonoBehaviour
         }
         return false;
     }
-    public GameObject ClickOther()
+    public GameObject OtherClickedObj()
     {
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
@@ -87,7 +121,7 @@ public class UserInputManager : MonoBehaviour
 
     public GameObject ClickUI()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && EventSystem.current.IsPointerOverGameObject())
         {
             if (EventSystem.current.IsPointerOverGameObject())
             {

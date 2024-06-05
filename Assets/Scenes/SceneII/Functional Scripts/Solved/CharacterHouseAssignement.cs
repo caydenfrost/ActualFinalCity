@@ -44,13 +44,5 @@ public class CharacterHouseAssignement : MonoBehaviour
         {
             selected = false;
         }
-        if (selected)
-        {
-            returnHomeScript.AddSelectedObj(gameObject);
-        }
-        else
-        {
-            returnHomeScript.RemoveSelectedObj(gameObject);
-        }
     }
 }

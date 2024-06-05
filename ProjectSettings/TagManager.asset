@@ -9,6 +9,8 @@ TagManager:
   - Person
   - Tree
   - Rock
+  - Clicker
+  - MassSelector
   layers:
   - Default
   - TransparentFX

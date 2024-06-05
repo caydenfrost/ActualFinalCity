@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GlobalUIManager : MonoBehaviour
 {
+    public UserInputManager clicker;
     //TYPES OF UI
     public GameObject CharacterUI;
     public GameObject HouseUI;

@@ -5,7 +5,6 @@ using UnityEngine;
 public class BuildingLockAndLocate : MonoBehaviour
 {
     public float coordinateLock;
-    public HouseData HouseData;
     void Start()
     {
         Vector3 currentPosition = transform.position;
@@ -13,12 +12,5 @@ public class BuildingLockAndLocate : MonoBehaviour
         currentPosition.z = Mathf.Round(currentPosition.z / coordinateLock) * coordinateLock;
         currentPosition.y = gameObject.transform.localScale.y/2;
         transform.position = currentPosition;
-        HouseData.AddHouse(gameObject, null);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

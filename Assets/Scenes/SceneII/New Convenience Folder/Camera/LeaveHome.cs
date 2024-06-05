@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class LeaveHome : MonoBehaviour
 {
-    private HouseCharacterData characterData;
+    private HouseDataManager characterData;
     public void ActiveHouse(GameObject house)
     {
-        characterData = house.GetComponent<HouseCharacterData>();
+        characterData = house.GetComponent<HouseDataManager>();
     }
 
     public void LeaveHouse()
@@ -18,7 +18,7 @@ public class LeaveHome : MonoBehaviour
             character.gameObject.SetActive(true);
             character.gameObject.GetComponent<NavigationAndAI>().returning = false;
             characterData.searchCharacters.Remove(character);
-            characterData.characters.Remove(character);
+            characterData.charactersInHouse.Remove(character);
         }
     }
 }
